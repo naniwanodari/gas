@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+unless Vagrant.has_plugin?("vagrant-vbguest")
+  raise "please run 'vagrant plugin install vagrant-vbguest'"
+end
+
+
+
+BOX_NAME = "centos/7"
+Vagrant.configure("2") do |config|
+  # image
+  config.vm.box = BOX_NAME
+
+  # ポート指定
+  config.vm.network "forwarded_port", guest: 80, host: 10081
+  # config.vm.network "forwarded_port", guest: 22, host: 10022
+
+  # IP割当
+  config.vm.network "private_network", ip: "192.168.33.161"
+
+  config.vm.box_check_update = false
+  config.ssh.insert_key = false
+
+  # 同期したいフォルダSync
+  config.vm.synced_folder "../src", "/home/vagrant/src", type:"virtualbox", create: true, mount_options:['dmode=777','fmode=777']
+  config.vm.synced_folder ".", "/vagrant", type:"virtualbox"
+
+  config.vm.provider "virtualbox" do |vb|
+  #   # Display the VirtualBox GUI when booting the machine
+    vb.gui = true
+  #
+  #   # Customize the amount of memory on the VM:
+    vb.memory = "1024"
+  end
+
+  #自動アップデート機能をオフ(vagrant upに失敗した際に試してください)
+  if Vagrant.has_plugin?("vagrant-vbguest")
+      config.vbguest.auto_update = false  
+  end
+end
