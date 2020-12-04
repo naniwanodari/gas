@@ -1,3 +1,4 @@
+//参加者
 class Member {
     constructor(info) {
         this.id = parseInt(info[0])

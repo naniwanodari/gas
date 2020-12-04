@@ -1,3 +1,4 @@
+//マッチしたかどうかを管理する（マトリクス）
 class MatchStatus {
     constructor(table) {
         this.table = table
