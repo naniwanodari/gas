@@ -1,14 +1,6 @@
-function getSpreadSheet(url) {
-  return SpreadsheetApp.openByUrl(url)
-}
-
-// function writeSheet(sheet, groups) {
-//   sheet.getRange("A1").setValue(groups[0][0].name)
-// }
-
 function run() {
   //スプレッドシートの取得
-  const spreadSheet = getSpreadSheet(config.url)
+  const spreadSheet = SpreadsheetApp.openByUrl(config.url)
   //スプレッドシートとの接続
   const membersRepo = new MemberRepository(spreadSheet, config.member)
   const matchStatusRepo = new MatchStatusRepository(spreadSheet, config.matchStatus)
@@ -19,10 +11,6 @@ function run() {
     matchStatus: matchStatusRepo.get(),
     history: groupHistoryRepo.get(),
   }
-  args.group = [args.members[0], args.members[1], args.members[2], args.members[3], args.members[4]],
-  Logger.log("--scoretest")
-  Logger.log(GroupScore.scoring(args))
-  Logger.log("--scoretest")
   //グループ作成の実行
   const groups = AsakaiGroup.create(args, config)
   const writeSheet = spreadSheet.getSheetByName("サンプルシート")

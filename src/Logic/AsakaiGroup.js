@@ -1,21 +1,25 @@
 //朝会のグループを決定する
 class AsakaiGroup {
     //グループを作成する
-    static oldCreate(args, config) {
+    static create(args, config) {
         const members = args.members
-        const limit = 100;
-        let groups = []
-        for(let i = 0; i < limit; i++) {
-            Logger.log(i)
-            groups = this.grouping(members, config)
-            if(this.validate(groups, config)){
-                break
+        const trialNum = config.trialNum;
+        let randomGroups = [];
+        for(let i = 0; i < trialNum; i++) {
+            const groups = this.createRandomGroups(members, config)
+            randomGroups.push(groups)
+        }
+        let bestScore = 0;
+        let winnerGroups = [];
+        for(let i = 0; i < randomGroups.length; i++){
+            const groupsScore = this.score(randomGroups[i], args)
+            if (bestScore <= groupsScore) {
+                bestScore = groupsScore
+                winnerGroups = randomGroups[i]
             }
         }
-        for(let i = 0; i < groups.length; i++){
-            groups[i].sort(this.compareById)
-        }
-        return groups
+        const finallyGroups = winnerGroups.sort(this.compareById)
+        return finallyGroups
     }
 
     //id順にソート
@@ -30,18 +34,25 @@ class AsakaiGroup {
         }
         return comparison
     }
-    //履歴と比較して条件をクリアしているかチェックする
-    static validate(groups, config) {
-        return GroupValidator.validate(groups, config);
+
+    //グループに点数をつける
+    static score(groups, args) {
+        let score = 0
+        for (let i = 0; i < groups.length; i++) {
+            args.group = groups[i]
+            score = score + GroupScore.scoring(args)
+        }
+        return score
     }
 
     //グループ分けする
-    static grouping(members, config) {
-        const prepareGroups = this.prepareGrouping(members, config)
+    static createRandomGroups(members, config) {
+        const prepareGroups = this.prepareGrouping(members)
         const groups = this.setMembersForGroups(prepareGroups, config)
         return groups
     }
 
+    //グループに参加者をセット
     static setMembersForGroups(prepareGroups, config) {
         const groupNum = config.groupNum
         const groups = this.makeEmptyArray(config.groupNum)
@@ -70,39 +81,11 @@ class AsakaiGroup {
         return array
     }
     
-    static prepareGrouping(members, config) {
-        //ラボ毎に切り分け
-        let prepareGroups = this.separate(members, config)
-        //ラボに切り分けた小グループをシャッフル
-        prepareGroups = prepareGroups.map(group => this.shuffle(group))
-        //ひとつの配列に戻す
-        prepareGroups = this.summarizePrepareGroups(prepareGroups)
+    //グループ分けの準備
+    static prepareGrouping(members) {
+        //参加者をシャッフル
+        const prepareGroups = members.map(member => this.shuffle(member))
         return prepareGroups
-    }
-
-    //ひとつの配列に戻す
-    static summarizePrepareGroups(prepareGroups) {
-        let summarize = []
-        for(let i = 0; i < prepareGroups.length; i++) {
-            for(let j = 0; j < prepareGroups[i].length; j++) {
-                summarize.push(prepareGroups[i][j])
-            }
-        }
-        return summarize
-    }
-
-    //条件に沿って小グループを作成
-    static separate(members, config) {
-        const separated = config.labo.map(labo => this.splitByLabo(members, labo))
-        return separated
-    }
-
-    //ラボ毎にグループ分け
-    static splitByLabo(members, laboName) {
-        const splited = members.filter((member) => {
-            return member.labo === laboName
-        })
-        return splited
     }
 
     //配列要素をシャッフル
