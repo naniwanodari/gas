@@ -6,7 +6,7 @@ class MemberRepository {
         return this;
     }
 
-    getActiveMembers() {
+    getActive() {
         const elements = this.getElements()
         const members = []
         for(let i = 0; i < elements.length; i++) {

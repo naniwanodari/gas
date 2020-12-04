@@ -1,7 +1,8 @@
 //朝会のグループを決定する
 class AsakaiGroup {
     //グループを作成する
-    static create(members, config) {
+    static oldCreate(args, config) {
+        const members = args.members
         const limit = 100;
         let groups = []
         for(let i = 0; i < limit; i++) {

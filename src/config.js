@@ -1,10 +1,24 @@
 const config = {
     url: "https://docs.google.com/spreadsheets/d/1_M8WCVytlHVZwFGBvsyUD0N3WtNJ6NEtUdXcP0z5bww/edit?usp=sharing",
+    trialNum: 100,
+    groupNum: 5,
     member: {
       sheetName: "メンバー",
       start: "A2",
       end: "D26",
       active: 1
+    },
+    history: {
+      sheetName: "グループ履歴",
+      mapping: [
+        {start: "C3", end: "G7"},
+        {start: "C11", end: "G15"}
+      ]
+    },
+    matchStatus: {
+      sheetName: "対面状況",
+      start: "B2",
+      end: "AE31"
     },
     labo: [
       "TO",
@@ -13,23 +27,5 @@ const config = {
       "SY",
       "KA",
       "MI"
-    ],
-    groupNum: 5,
-    //一回手打ちで
-    history: [
-      [
-        [3,4,17],
-        [2,10,13],
-        [5,9,18],
-        [6,11,15,25],
-        [12,14,24]
-      ],
-      [
-        [4,10,24,25],
-        [5,11,17],
-        [6,12,16],
-        [8,13,23],
-        [9,14,18,3]
-      ]
     ]
-  }
+}
