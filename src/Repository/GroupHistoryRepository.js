@@ -1,3 +1,4 @@
+//履歴の取得を担当
 class GroupHistoryRepository {
     constructor(sheet, config) {
         this.sheet = sheet.getSheetByName(config.sheetName)

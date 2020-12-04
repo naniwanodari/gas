@@ -1,3 +1,4 @@
+//参加者の取得を担当
 class MemberRepository {
     constructor(sheet, config){
         this.sheet = sheet.getSheetByName(config.sheetName)

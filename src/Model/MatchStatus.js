@@ -3,6 +3,7 @@ class MatchStatus {
         this.table = table
     }
 
+    //idの組み合わせが同じグループになったことがあるか？
     isUnmatch(x, y) {
         //同一人物は省く
         if (x === y) {

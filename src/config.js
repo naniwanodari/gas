@@ -19,13 +19,5 @@ const config = {
       sheetName: "対面状況",
       start: "B2",
       end: "AE31"
-    },
-    labo: [
-      "TO",
-      "SA",
-      "KO",
-      "SY",
-      "KA",
-      "MI"
-    ]
+    }
 }

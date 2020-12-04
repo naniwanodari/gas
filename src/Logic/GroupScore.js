@@ -1,4 +1,6 @@
+//グループの評価を行う
 class GroupScore {
+    //評価実行
     static scoring(args) {
         const group = args.group
         const matchStatus = args.matchStatus

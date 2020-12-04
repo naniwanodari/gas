@@ -1,3 +1,4 @@
+//マッチング履歴を取得を担当
 class MatchStatusRepository {
     constructor(sheet, config) {
         this.sheet = sheet.getSheetByName(config.sheetName)
