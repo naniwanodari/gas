@@ -12,6 +12,21 @@ class MatchStatusRepository {
     }
 
     getElements() {
-        return this.sheet.getRange(this.start + ":" + this.end).getValues()
+        return this.sheet.getRange(this.start.x, this.start.y, this.end.x, this.start.y).getValues()
+    }
+
+    save(groups) {
+        for(let i = 0; i < groups.length; i++) {
+            this.writeMatchResult(groups[i])
+        }
+    }
+
+    writeMatchResult(group) {
+        for(let i = 0; i < group.length; i++) {
+            for(let j = 0; j < group.length; j++) {
+                const coordinate = MatchStatus.selectCoordinate(group[i].id, group[j].id)
+                this.sheet.getRange(this.start.x + coordinate.x, this.start.y + coordinate.y).setValue('o')
+            }
+        }
     }
 }

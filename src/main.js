@@ -13,6 +13,7 @@ function run() {
   }
   //グループ作成の実行
   const groups = AsakaiGroup.create(args, config)
+  //記録
   const writeSheet = spreadSheet.getSheetByName("サンプルシート")
   for(let i = 0; i < groups.length; i++) {
     for(let j = 0; j < groups[i].length; j++) {
@@ -21,5 +22,7 @@ function run() {
       writeSheet.getRange(row, column).setValue(groups[i][j].name)
     }
   }
+  matchStatusRepo.save(groups)
+  groupHistoryRepo.save(groups)
   Logger.log(groups)
 }

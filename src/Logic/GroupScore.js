@@ -54,7 +54,6 @@ class GroupScore {
         for(let i = 0; i < history.length; i++) {
             let tmpNum = 0;
             for(let j = 0; j < memberIds.length; j++) {
-                Logger.log(`history${i}:${history[i]} includes ${memberIds[j]}:${history[i].includes(memberIds[j])}`)
                 if(history[i].includes(memberIds[j])){
                     tmpNum++
                 }

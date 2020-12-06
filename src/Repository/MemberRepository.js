@@ -22,4 +22,5 @@ class MemberRepository {
     getElements() {
         return this.sheet.getRange(this.start + ":" +this.end).getValues()
     }
+
 }

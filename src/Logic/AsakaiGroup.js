@@ -4,9 +4,12 @@ class AsakaiGroup {
     static create(args, config) {
         const members = args.members
         const trialNum = config.trialNum;
-        let randomGroups = [];
+        const randomGroups = [];
         for(let i = 0; i < trialNum; i++) {
             const groups = this.createRandomGroups(members, config)
+            Logger.log("---------------")
+            Logger.log(groups)
+            Logger.log("---------------")
             randomGroups.push(groups)
         }
         let bestScore = 0;
@@ -18,7 +21,7 @@ class AsakaiGroup {
                 winnerGroups = randomGroups[i]
             }
         }
-        const finallyGroups = winnerGroups.sort(this.compareById)
+        const finallyGroups = winnerGroups.map(group => group.sort(this.compareById))
         return finallyGroups
     }
 
@@ -84,7 +87,7 @@ class AsakaiGroup {
     //グループ分けの準備
     static prepareGrouping(members) {
         //参加者をシャッフル
-        const prepareGroups = members.map(member => this.shuffle(member))
+        const prepareGroups = this.shuffle(members)
         return prepareGroups
     }
 
