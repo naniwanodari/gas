@@ -7,6 +7,7 @@ class MemberRepository {
         return this;
     }
 
+    //朝会に参加する人を取得
     getActive() {
         const elements = this.getElements()
         const members = []
@@ -19,6 +20,7 @@ class MemberRepository {
         return members
     }
 
+    //スプレッドシートから要素を取得
     getElements() {
         return this.sheet.getRange(this.start + ":" +this.end).getValues()
     }

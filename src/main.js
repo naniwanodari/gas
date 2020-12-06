@@ -5,6 +5,8 @@ function run() {
   const membersRepo = new MemberRepository(spreadSheet, config.member)
   const matchStatusRepo = new MatchStatusRepository(spreadSheet, config.matchStatus)
   const groupHistoryRepo = new GroupHistoryRepository(spreadSheet, config.history)
+  const groupRepo = new GroupRepository(spreadSheet, config.group)
+
   //判定に必要な情報の取得
   const args = {
     members: membersRepo.getActive(),
@@ -14,15 +16,11 @@ function run() {
   //グループ作成の実行
   const groups = AsakaiGroup.create(args, config)
   //記録
-  const writeSheet = spreadSheet.getSheetByName("サンプルシート")
-  for(let i = 0; i < groups.length; i++) {
-    for(let j = 0; j < groups[i].length; j++) {
-      const row = j + 1
-      const column = i + 1
-      writeSheet.getRange(row, column).setValue(groups[i][j].name)
-    }
-  }
   matchStatusRepo.save(groups)
   groupHistoryRepo.save(groups)
+
+  //出力
+  groupRepo.output(groups)
+  
   Logger.log(groups)
 }

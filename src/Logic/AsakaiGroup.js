@@ -7,9 +7,6 @@ class AsakaiGroup {
         const randomGroups = [];
         for(let i = 0; i < trialNum; i++) {
             const groups = this.createRandomGroups(members, config)
-            Logger.log("---------------")
-            Logger.log(groups)
-            Logger.log("---------------")
             randomGroups.push(groups)
         }
         let bestScore = 0;

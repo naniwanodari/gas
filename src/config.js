@@ -11,16 +11,18 @@ const config = {
     history: {
       sheetName: "グループ履歴",
       asakaiNumCell: "B1",
+      //保存、採点に利用する履歴の回数
       historyNum: 2,
-      readAreaRange: {column: 10, row: 10},
-      readAreas: [
-        {start: {column: 3, row: 3}, end: {column: 7, row: 10}},
-        {start: {column: 3, row: 11}, end: {column: 7, row: 15}}
-      ]
+      //履歴読み取り時の計算の基準になる値
+      readAreaBase: {start:{column:3, row: 3}, range: {column: 10, row: 10}}
     },
     matchStatus: {
       sheetName: "対面状況",
       start: {x: 2, y: 2},
       end: {x: 31, y: 31}
+    },
+    group: {
+      outputSheetName: "出力テスト",
+      writeAreaBase: {start: {row: 2, column: 1}, range: {column: 10, row: 10}}
     }
 }
