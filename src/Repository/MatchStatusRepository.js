@@ -2,8 +2,7 @@
 class MatchStatusRepository {
     constructor(sheet, config) {
         this.sheet = sheet.getSheetByName(config.sheetName)
-        this.start = config.start
-        this.end = config.end
+        this.areaBase = config.areaBase
     }
 
     //マッチング履歴を取得
@@ -14,7 +13,7 @@ class MatchStatusRepository {
 
     //スプレッドシートから要素を取得
     getElements() {
-        return this.sheet.getRange(this.start.x, this.start.y, this.end.x, this.start.y).getValues()
+        return this.sheet.getRange(this.areaBase.start.row, this.areaBase.start.column, this.areaBase.range.row, this.areaBase.range.column).getValues()
     }
 
     //マッチング履歴を保存
@@ -29,7 +28,7 @@ class MatchStatusRepository {
         for(let i = 0; i < group.length; i++) {
             for(let j = 0; j < group.length; j++) {
                 const coordinate = MatchStatus.selectCoordinate(group[i].id, group[j].id)
-                this.sheet.getRange(this.start.x + coordinate.x, this.start.y + coordinate.y).setValue('o')
+                this.sheet.getRange(this.areaBase.start.row + coordinate.row, this.areaBase.start.column + coordinate.column).setValue('o')
             }
         }
     }

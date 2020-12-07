@@ -11,7 +11,7 @@ class MatchStatus {
             return false
         }
         const coordinate = MatchStatus.selectCoordinate(id1, id2)
-        return this.table[coordinate.x][coordinate.y] === '' ? true : false
+        return this.table[coordinate.column][coordinate.row] === '' ? true : false
     }
 
     //xを値が小さいIDに統一([id1, id2]は[id2, id1]は等価のため)
@@ -20,8 +20,8 @@ class MatchStatus {
         id1 = id1 - 1
         id2 = id2 - 1
         if (id1 > id2) {
-            return {x: id2, y: id1}
+            return {row: id2, column: id1}
         }
-        return {x: id1, y: id2}
+        return {row: id1, column: id2}
     }
 }

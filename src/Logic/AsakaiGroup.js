@@ -9,8 +9,9 @@ class AsakaiGroup {
             const groups = this.createRandomGroups(members, config)
             randomGroups.push(groups)
         }
-        let bestScore = 0;
-        let winnerGroups = [];
+        //稀にマイナス評価のグループのみの場合があるので、初期値はマイナスにする
+        let bestScore = -100;
+        let winnerGroups = randomGroups[0];
         for(let i = 0; i < randomGroups.length; i++){
             const groupsScore = this.score(randomGroups[i], args)
             if (bestScore <= groupsScore) {
